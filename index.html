@@ -13,35 +13,49 @@
 <!--suppress JSUnusedLocalSymbols -->
 <script type="text/babel">
 
-    const Checkbox = React.createClass({
+    const Note = React.createClass({
         getInitialState() {
-            return {checked: true}
+            return { editing: false }
         },
-        handleCheck(){
-            this.setState({checked: !this.state.checked});
+        edit() {
+            this.setState({ editing: true });
+        },
+        save() {
+            const value = this.refs.newText.value;
+            prompt(value);
+            this.setState({ editing: false });
+        },
+        remove(){
+            confirm('Remove note')
+        },
+        renderForm() {
+            return (
+                    <div className="note">
+                        <textarea ref="newText"/>
+                        <button onClick={this.save}>SAVE</button>
+                    </div>
+            );
+        },
+        renderDisplay() {
+            return (
+                    <div className="note">
+                        <p>{this.props.children}</p>
+                        <span>
+                             <button onClick={this.edit}>Edit</button>
+                             <button onClick={this.remove}>X</button>
+                        </span>
+                    </div>
+            );
         },
         render() {
-            var message;
-            if(this.state.checked) {
-                message = 'checked...';
-            } else {
-                message = 'unchecked...';
-            }
-            return (
-                    <div>
-                        <input type="checkbox"
-                               onChange={this.handleCheck}
-                                defaultChecked={this.state.checked}/>
-                        <p>This box is {message}</p>
-                    </div>
-            )
+            return (this.state.editing) ?  this.renderForm() : this.renderDisplay();
         }
     });
 
     ReactDOM.render(
-            <Checkbox>
+            <Note>
                 Truth traps when you receive with ascension.
-            </Checkbox>,
+            </Note>,
         document.getElementById('react-container')
     );
 </script>
