@@ -10,14 +10,15 @@
 <body>
 <div id="react-container"></div>
 <script type="text/babel">
-    const MyComponet = React.createClass({
+    class MyComponet extends React.Component{
+
         render() {
             return <div>
                 <h1>Hello World from Component</h1>
                 <p>We are contacting you from the fancy component!</p>
             </div>
         }
-    });
+    }
 
     ReactDOM.render(
         <MyComponet/>,
