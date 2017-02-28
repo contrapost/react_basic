@@ -6,52 +6,37 @@
     <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <div id="react-container"></div>
 <!--suppress JSUnusedLocalSymbols -->
 <script type="text/babel">
 
-    const MyComponent = React.createClass({
+    const Note = React.createClass({
+        edit() {
+          confirm('Edit note')
+        },
+        remove(){
+          confirm('Remove note')
+        },
         render() {
-            return <div>
-                <h1>{this.props.text}</h1>
-                <p>{this.props.children}</p>
-            </div>
+            return (
+                    <div className="note">
+                        <p>{this.props.children}</p>
+                        <span>
+                        <button onClick={this.edit}>Edit</button>
+                        <button onClick={this.remove}>X</button>
+                    </span>
+                    </div>
+            )
         }
     });
 
-    ReactDOM.render(<div>
-                        <MyComponent text="Paragraph #1">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a sem felis.
-                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                            Duis rutrum metus vitae ipsum egestas euismod. In faucibus, risus non imperdiet tristique,
-                            augue purus sollicitudin mi, vitae vestibulum augue justo vitae nibh.
-                            Sed in nunc nec enim vestibulum scelerisque nec ac sapien. Etiam quam arcu,
-                            lacinia eu mollis ac, placerat nec augue. Fusce mattis, lectus dignissim molestie dictum,
-                            felis tellus efficitur tellus, at aliquam augue nulla efficitur sapien.
-                            Aenean ut hendrerit massa. Nam vestibulum eget metus eu ornare. Fusce viverra luctus massa,
-                            eget varius ligula tempus et. Integer at ligula vitae diam vestibulum sodales. Nullam at
-                            tincidunt lorem. Praesent interdum rutrum turpis at dictum. Nunc tellus mauris, elementum
-                            sed diam volutpat, finibus finibus augue. Vestibulum ullamcorper viverra lectus, elementum
-                            interdum metus viverra sed.
-                        </MyComponent>
-                        <MyComponent text="Paragraph #2">
-                            Ut condimentum enim eget velit ornare placerat. Nunc lacinia, ligula et tincidunt consequat,
-                            dolor dolor aliquam sapien, sed vehicula arcu dui quis diam. Vestibulum placerat orci ac
-                            facilisis sollicitudin. Aenean non rutrum neque. Nam malesuada sem sed eros euismod, non
-                            convallis felis aliquet. Cras et dignissim tortor. In id gravida diam. Pellentesque a porta
-                            augue.
-                        </MyComponent>
-                        <MyComponent text="Paragraph #3">
-                            Fusce suscipit condimentum est, eget feugiat leo. Aenean varius egestas mollis. Maecenas in
-                            mollis lorem. Phasellus ac sodales lorem. Aenean facilisis ex ex, eu lobortis dolor semper
-                            maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed malesuada dolor
-                            lorem, sed rutrum velit consequat ut. Etiam consequat nibh nibh, non laoreet leo varius et.
-                            Aliquam gravida commodo mauris eu auctor. Aenean in feugiat orci. Donec neque diam,
-                            malesuada a mattis id, egestas eget turpis.
-                        </MyComponent>
-                    </div>,
+    ReactDOM.render(
+            <Note>
+                Truth traps when you receive with ascension.
+            </Note>,
         document.getElementById('react-container')
     );
 </script>
