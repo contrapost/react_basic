@@ -67,17 +67,30 @@
             }
             /*count: React.PropTypes.number*/
         },
+        getInitialState() {
+            return {
+                notes: [
+                    'Hobble begrudgingly like a jolly plank.',
+                    'All golds taste stormy, sunny sharks.',
+                    'Yuck, endure me jolly roger, ye gutless son!',
+                    'Oh, love me woodchuck, ye cold gibbet!',
+                    'Parrots are the bung holes of the mighty desolation.'
+                ]
+            }
+        },
         render() {
             return(
                     <div className="board">
-                        {this.props.count}
+                        {this.state.notes.map((note, i) => {
+                            return <Note key={i}>{note}</Note>
+                        })}
                     </div>
             );
         }
     });
 
     ReactDOM.render(
-            <Board count={5000} />,
+            <Board count={5} />,
         document.getElementById('react-container')
     );
 </script>
