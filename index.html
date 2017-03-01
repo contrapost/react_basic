@@ -68,15 +68,22 @@
         },
         getInitialState() {
             return {
-                notes: [
-                    { id: 0, note: 'Ho-ho-ho! faith of endurance.' },
-                    { id: 1, note: 'Gar, taste me shore, ye dark swabbie!' },
-                    { id: 2, note: 'Krakens stutter on desolation at prison!' },
-                    { id: 3, note: 'Passion, hunger, and life.' },
-                    { id: 4, note: 'Coal-black amnesties lead to the grace.' },
-                    { id: 5, note: 'O, never fire a whale.' }
-                ]
+                notes: []
             }
+        },
+        nextID() {
+            this.uniqID = this.uniqID || 0;
+            return this.uniqID++;
+        },
+        add(text) {
+            const notes = [
+                ...this.state.notes,
+                {
+                    id: this.nextID(),
+                    note: text
+                }
+            ];
+            this.setState({notes});
         },
         update(newText, id){
             const notes = this.state.notes.map(
@@ -105,6 +112,7 @@
             return(
                     <div className="board">
                         {this.state.notes.map(this.eachNote)}
+                        <button onClick={() => this.add()}>+</button>
                     </div>
             );
         }
