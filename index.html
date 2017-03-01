@@ -21,12 +21,11 @@
             this.setState({ editing: true });
         },
         save() {
-            const value = this.refs.newText.value;
-            prompt(value);
-            this.setState({ editing: false });
+            this.props.onChange(this.refs.newText.value, this.props.id);
+            this.setState({ editing: false})
         },
         remove(){
-            confirm('Remove note')
+            this.props.onRemove(this.props.id);
         },
         renderForm() {
             return (
@@ -70,20 +69,42 @@
         getInitialState() {
             return {
                 notes: [
-                    'Hobble begrudgingly like a jolly plank.',
-                    'All golds taste stormy, sunny sharks.',
-                    'Yuck, endure me jolly roger, ye gutless son!',
-                    'Oh, love me woodchuck, ye cold gibbet!',
-                    'Parrots are the bung holes of the mighty desolation.'
+                    { id: 0, note: 'Ho-ho-ho! faith of endurance.' },
+                    { id: 1, note: 'Gar, taste me shore, ye dark swabbie!' },
+                    { id: 2, note: 'Krakens stutter on desolation at prison!' },
+                    { id: 3, note: 'Passion, hunger, and life.' },
+                    { id: 4, note: 'Coal-black amnesties lead to the grace.' },
+                    { id: 5, note: 'O, never fire a whale.' }
                 ]
             }
+        },
+        update(newText, id){
+            const notes = this.state.notes.map(
+                note => (note.id !== id) ?
+                    note :
+                    {
+                        ...note,
+                        note: newText
+                    }
+            );
+            this.setState({notes});
+        },
+        remove(id){
+            const notes = this.state.notes.filter(note => note.id !== id);
+            this.setState({notes});
+        },
+        eachNote(note){
+            return (<Note key={note.id}
+                          id={note.id}
+                          onChange={this.update}
+                          onRemove={this.remove}>
+                        {note.note}
+                    </Note>);
         },
         render() {
             return(
                     <div className="board">
-                        {this.state.notes.map((note, i) => {
-                            return <Note key={i}>{note}</Note>
-                        })}
+                        {this.state.notes.map(this.eachNote)}
                     </div>
             );
         }
